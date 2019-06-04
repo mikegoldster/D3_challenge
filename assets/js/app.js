@@ -52,7 +52,7 @@ function renderAxes(newXScale, xAxis) {
 
 // function used for updating circles group with a transition to
 // new circles
-function renderCircles(circlesGroup, newXScale, chosenXaxis) {
+function renderCircles(circlesGroup, newXScale, chosenXAxis) {
 
   circlesGroup.transition()
     .duration(1000)
@@ -62,13 +62,20 @@ function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 }
 
 // function used for updating circles group with new tooltip
-function updateToolTip(chosenXAxis, circlesGroup) {
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
   if (chosenXAxis === "age") {
-    var label = "Age:";
+    var label = "Age (Median)";
   }
   else {
-    var label = "Income:";
+    var label = "Income ($)";
+  }
+
+  if (chosenYAxis === "healthcare") {
+    var label = "Access to Healthcare (%)";
+  }
+  else {
+    var label = "Obesity (%)";
   }
 
   var toolTip = d3.tip()
@@ -106,9 +113,10 @@ d3.csv("data.csv", function(err, stateData) {
   var xLinearScale = xScale(stateData, chosenXAxis);
 
   // Create y scale function
-  var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(stateData, d => d.income)])
-    .range([height, 0]);
+  var yLinearScale = yScale(stateData, chosenYAxis);
+  // var yLinearScale = d3.scaleLinear()
+  //   .domain([0, d3.max(stateData, d => d.healthcare)])
+  //   .range([height, 0]);
 
   // Create initial axis functions
   var bottomAxis = d3.axisBottom(xLinearScale);
@@ -130,7 +138,7 @@ d3.csv("data.csv", function(err, stateData) {
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.income))
+    .attr("cy", d => yLinearScale(d.chosenYAxis))
     .attr("r", 20)
     .attr("fill", "blue")
     .attr("opacity", "1");
@@ -154,7 +162,7 @@ d3.csv("data.csv", function(err, stateData) {
     .text("Age");
 
   // append y axis
-  incomeGroup.append("text")
+  var incomeLabel = incomeGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
