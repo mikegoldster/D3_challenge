@@ -92,7 +92,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("data.csv", function(err, stateData) {
+d3.csv("assets/data/data.csv", function(err, stateData) {
   if (err) throw err;
 
   // parse data
@@ -101,6 +101,8 @@ d3.csv("data.csv", function(err, stateData) {
     data.income = +data.income;
     data.healthcare = +data.healthcare;
   });
+
+  console.log(stateData);
 
   // xLinearScale functionS above csv import
   var xLinearScale = xScale(stateData, chosenXAxis);
@@ -134,7 +136,7 @@ d3.csv("data.csv", function(err, stateData) {
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
     .attr("fill", "blue")
-    .attr("opacity", "05");
+    .attr("opacity", "0.5");
 
   // Create group for  2 x- axis labels
   var labelsState = chartGroup.append("g")
