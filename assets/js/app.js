@@ -155,7 +155,7 @@ function buildCharts(stateData) {
 
   var ageLabel = labelsState.append("text")
     .attr("x", 0)
-    .attr("y", 40)
+    .attr("y", 20)
     .attr("value", "age") // value to grab for event listener
     .classed("active", true)
     .text("Age (Median):");
@@ -169,9 +169,9 @@ function buildCharts(stateData) {
 
   var povertyLabel = labelsState.append("text")
     .attr("x", 0)
-    .attr("y", 20)
+    .attr("y", 60)
     .attr("value", "poverty") // value to grab for event listener
-    .classed("active", true)
+    .classed("inactive", true)
     .text("In Poverty %");
 
   // append y axis
@@ -186,23 +186,24 @@ function buildCharts(stateData) {
   var healthcareLabel = labelsState.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", 0 - (height / 2))
-    .attr("y", 0 - margin.left + 40)
-    .attr("value", "healthcare") // value to grab for event listener
-    .classed("inactive", true)
+    .attr("y", 0 - margin.left)
+    .attr("dy", "1em")
+    // .attr("value", "healthcare") // value to grab for event listener
+    .classed("axis-text", true)
     .text("Access to Healthcare");
 
   var obesityLabel = labelsState.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", 0 - (height / 2))
-    .attr("y", 0 - margin.left)
-    .attr("dy", "1em")
-    .classed("axis-text", true)
+    .attr("y", 0 - margin.left + 20)
+    .attr("value", "obesity")
+    .classed("inactive", true)
     .text("Obesity %");
 
   var smokeLabel = labelsState.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", 0 - (height / 2))
-    .attr("y", 0 - margin.left + 20)
+    .attr("y", 0 - margin.left + 40)
     .attr("value", "smoke") // value to grab for event listener
     .classed("inactive", true)
     .text("Smoke (%)");
