@@ -96,10 +96,6 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-// d3.csv("assets/data/data.csv"), then(function(err, stateData) {
-//   if (err) throw err;
-
-  // parse data
 d3.csv("../assets/data/data.csv").then(function(stateData){
   buildCharts(stateData);
 });
@@ -146,10 +142,10 @@ function buildCharts(stateData) {
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 10)
-    .attr("fill", "lightblue")
-    .attr("opacity", ".5");
+    .attr("fill", "blue")
+    .attr("opacity", ".8");
 
-  // Create group for  2 x- axis labels
+  // Create group for  3 x- axis labels
   var labelsState = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -172,9 +168,11 @@ function buildCharts(stateData) {
     .attr("y", 60)
     .attr("value", "poverty") // value to grab for event listener
     .classed("inactive", true)
-    .text("In Poverty %");
+    .text("In Poverty %:");
 
   // append y axis
+
+
   chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
@@ -221,7 +219,7 @@ function buildCharts(stateData) {
         // replaces chosenXAxis with value
         chosenXAxis = value;
 
-        // console.log(chosenXAxis)
+        console.log(chosenXAxis)
 
         // functions here found above csv import
         // updates x scale for new data
@@ -272,5 +270,4 @@ function buildCharts(stateData) {
         }
       }
     });
-
-  }
+}
