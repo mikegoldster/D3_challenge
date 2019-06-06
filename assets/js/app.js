@@ -144,7 +144,24 @@ function buildCharts(stateData) {
     .attr("r", 10)
     .attr("fill", "blue")
     .attr("opacity", ".8");
-
+  
+  var circleLabels = chartGroup.selectAll(null).data(stateData).enter().append("text");
+  
+  circleLabels
+    .attr("x", function(d) {
+      return xLinearScale(d[chosenXAxis]);
+    })
+    .attr("y", function(d) {
+      return yLinearScale(d.healthcare);
+    })
+    .text(function(d) {
+      return d.abbr;
+    })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "10px")
+    .attr("text-anchor", "middle")
+    .attr("fill", "white");
+    
   // Create group for  3 x- axis labels
   var labelsState = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
